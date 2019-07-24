@@ -7,7 +7,10 @@
             @component('layouts.user', ['profile' => $post->user->profile])
             @endcomponent
             <div class="mt-2">
-                <p>{{ $post->description }}</p>
+                <p>
+                    @component('tag.tag', ['desc' => $post->description])
+                    @endcomponent
+                </p>
             </div>
         </div>
     </div>

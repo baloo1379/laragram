@@ -14,6 +14,7 @@
 use App\Post;
 use App\Profile;
 use App\User;
+use App\Tag;
 use Illuminate\Support\Facades\Input;
 
 Route::get('/', function () {
@@ -25,6 +26,14 @@ Route::get('/', function () {
         ]);
     } else return view('welcome');
 });
+
+Route::get('/t/{name}', function ($name) {
+    $tag = Tag::where('name', '#'.$name)->firstOrFail();
+    return view('tag.index', [
+        'posts' => $tag->posts,
+        'tag' => $tag
+    ]);
+})->name('tag');
 
 Route::get('/search', function () {
     $q = Input::get('q', '');

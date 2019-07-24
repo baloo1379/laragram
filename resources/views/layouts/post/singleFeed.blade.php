@@ -14,7 +14,8 @@
         <div>
             <a class="text-dark font-weight-bold"
                href="{{ route('profile.index', $post->user->name) }}">{{ $post->user->name }}</a>
-            {{ $post->description }}
+            @component('tag.tag', ['desc' => $post->description])
+            @endcomponent
         </div>
     </div>
 </div>
