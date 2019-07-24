@@ -4,7 +4,7 @@
     </div>
     <div class="col-12 col-md-4 card rounded-0">
         <div class="card-body">
-            @component('layouts.user', ['profile' => $post->user->profile])
+            @component('components.user', ['profile' => $post->user->profile])
             @endcomponent
             <div class="mt-2">
                 <p>

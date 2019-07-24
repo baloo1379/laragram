@@ -1,6 +1,6 @@
 <div class="card mb-2 {{ $classes ?? '' }}">
     <div class="card-body p-3">
-        @component('layouts.user', ['profile' => $post->user->profile])
+        @component('components.user', ['profile' => $post->user->profile])
         @endcomponent
     </div>
 

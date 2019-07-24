@@ -12,6 +12,7 @@ use Illuminate\Notifications\Notifiable;
  * @property Profile profile
  * @property mixed following
  * @property mixed followers
+ * @mixin \Eloquent
  */
 class User extends Authenticatable
 {

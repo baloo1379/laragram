@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Database\Eloquent\Relations\BelongsToMany tags
  * @property array tagList
  * @package App
+ * @mixin \Eloquent
  */
 class Post extends Model
 {

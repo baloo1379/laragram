@@ -35,26 +35,7 @@ Route::get('/t/{name}', function ($name) {
     ]);
 })->name('tag');
 
-Route::get('/search', function () {
-    $q = Input::get('q', '');
-    if ($q[0] == '@') {
-        // searching user with that name
-        $name = substr($q, 1);
-        $users = User::where('name', 'like', '%' . $name . '%')->get()->pluck('id')->toArray();
-        $profiles = Profile::where('title', 'like', '%' . $name . '%')->get()->pluck('user_id')->toArray();
-        $id = array_unique(array_merge($users, $profiles), SORT_REGULAR);
-    } else {
-        $users = User::where('name', 'like', '%' . $q . '%')->get()->pluck('id')->toArray();
-        $profiles = Profile::where('title', 'like', '%' . $q . '%')->get()->pluck('user_id')->toArray();
-        $id = array_unique(array_merge($users, $profiles), SORT_REGULAR);
-    }
-
-    $usersResult = User::whereIn('id', $id)->get();
-
-    return view('search', [
-        'users' => $usersResult
-    ]);
-})->name('search');
+Route::get('/search', 'SearchController@search')->name('search');
 
 Auth::routes();
 

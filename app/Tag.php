@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @package App
  * @property string name
  * @property \Illuminate\Database\Eloquent\Relations\BelongsToMany posts
+ * @mixin \Eloquent
  */
 class Tag extends Model
 {

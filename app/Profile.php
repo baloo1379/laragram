@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string website
  * @property string biogram
  * @property User user
+ * @mixin \Eloquent
  */
 class Profile extends Model
 {
