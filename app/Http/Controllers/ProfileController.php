@@ -50,10 +50,10 @@ class ProfileController extends Controller
         $this->authorize('update', $profile);
 
         $attr = $request->validate([
-            'title' => '',
-            'website' => '',
-            'biogram' => '',
-            'image' => 'image',
+            'title' => 'nullable|not_regex:/\#\w+/m',
+            'website' => 'nullable|url',
+            'biogram' => 'nullable',
+            'image' => 'nullable|image',
         ]);
 
         if ($request->has('image')) {
