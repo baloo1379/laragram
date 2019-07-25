@@ -24,4 +24,9 @@ class Tag extends Model
     {
         return $this->belongsToMany(Post::class)->latest();
     }
+
+    public function getType()
+    {
+        return "App\Tag";
+    }
 }

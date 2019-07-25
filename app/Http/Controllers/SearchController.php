@@ -14,6 +14,10 @@ class SearchController extends Controller
     public function search()
     {
         $q = Input::get('q', '');
+        if($q == '') {
+            return back();
+        }
+
         $usersResult = Collection::make([]);
         $tagsResult = Collection::make([]);
         if ($q[0] == '@') {
@@ -34,14 +38,9 @@ class SearchController extends Controller
             $usersResult = User::whereIn('id', $id)->get();
         }
 
-        $result = Collection::make([[$usersResult, $tagsResult]])->flatten()->sortBy('name');
+        $results = Collection::make([[$usersResult, $tagsResult]])->flatten()->sortBy('name');
             //([$usersResult, $tagsResult])->sortByDesc('name');
 
-        dd($result);
-
-        return view('search', [
-            'users' => $usersResult,
-            'tags' => $tagsResult
-        ]);
+        return view('search', compact('results'));
     }
 }

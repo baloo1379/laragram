@@ -4,3 +4,11 @@
 @import 'variables';
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.btn-tag {
+  width: 100%;
+
+  @media (min-width: 768px) {
+    width: initial !important;
+  }
+}

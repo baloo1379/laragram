@@ -43,4 +43,9 @@ class Post extends Model
     {
         return $this->tags()->pluck('name')->toArray();
     }
+
+    public function getType()
+    {
+        return "App\Post";
+    }
 }

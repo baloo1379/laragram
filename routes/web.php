@@ -29,11 +29,11 @@ Route::get('/', function () {
 
 Route::get('/t/{name}', function ($name) {
     $tag = Tag::where('name', '#'.$name)->firstOrFail();
-    return view('tag.index', [
+    return view('tag.show', [
         'posts' => $tag->posts,
         'tag' => $tag
     ]);
-})->name('tag');
+})->name('tag.show');
 
 Route::get('/search', 'SearchController@search')->name('search');
 

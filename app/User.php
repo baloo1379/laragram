@@ -49,7 +49,7 @@ class User extends Authenticatable
 
         static::created(function (User $user) {
             $user->profile()->create([
-                'image' => '/storage/profile/default.jpg',
+                'image' => '/storage/defaults/user.jpg',
                 'title' => $user->name,
             ]);
         });
@@ -80,4 +80,8 @@ class User extends Authenticatable
         return $this->following->contains('id', $user->id);
     }
 
+    public function getType()
+    {
+        return "App\User";
+    }
 }
