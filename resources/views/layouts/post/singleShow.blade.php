@@ -4,10 +4,14 @@
     </div>
     <div class="col-12 col-md-4 card rounded-0">
         <div class="card-body">
-            @component('layouts.user', ['profile' => $post->user->profile])
+            @component('components.user', ['profile' => $post->user->profile])
             @endcomponent
             <div class="mt-2">
-                <p>{{ $post->description }}</p>
+                <p>
+                    @component('tag.tag', ['desc' => $post->description])
+                    @endcomponent
+                </p>
+                <div><small>{{ $post->created_at->diffForHumans() }}</small></div>
             </div>
         </div>
     </div>

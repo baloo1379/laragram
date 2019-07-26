@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string website
  * @property string biogram
  * @property User user
+ * @mixin \Eloquent
  */
 class Profile extends Model
 {
@@ -19,5 +20,10 @@ class Profile extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getType()
+    {
+        return "App\Profile";
     }
 }

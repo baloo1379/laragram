@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Profile;
+use App\User;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 
@@ -10,7 +11,13 @@ class ProfileController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except('show');
+        $this->middleware(['verified', 'auth'])->except(['index', 'show']);
+    }
+
+    public function index(User $user)
+    {
+        // $user = User::where('name', $username)->firstOrFail();
+        return view('profile.show', ['profile' => $user->profile]);
     }
 
     /**
@@ -50,10 +57,10 @@ class ProfileController extends Controller
         $this->authorize('update', $profile);
 
         $attr = $request->validate([
-            'title' => '',
-            'website' => '',
-            'biogram' => '',
-            'image' => 'image',
+            'title' => 'nullable|not_regex:/\#\w+/m',
+            'website' => 'nullable|url',
+            'biogram' => 'nullable',
+            'image' => 'nullable|image',
         ]);
 
         if ($request->has('image')) {

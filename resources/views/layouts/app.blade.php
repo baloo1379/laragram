@@ -26,8 +26,7 @@
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
-            @component('layouts.search')
-            @endcomponent
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="{{ __('Toggle navigation') }}">
@@ -36,12 +35,15 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
-                <ul class="navbar-nav mr-auto">
-
+                <ul class="navbar-nav mr-auto mt-3 mt-md-0">
+                    <li class="nav-item">
+                        @component('components.search')
+                        @endcomponent
+                    </li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav ml-auto mt-3 mt-md-0">
                     <!-- Authentication Links -->
                     @guest
                         <li class="nav-item">
@@ -54,7 +56,7 @@
                         @endif
                     @else
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                            <a id="navbarDropdown" class="nav-link btn dropdown-toggle" href="#" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
@@ -83,15 +85,8 @@
         </div>
     </nav>
 
-    <main class="py-4">
-        <div class="container-fluid">
-            <div class="row justify-content-center">
-                <div class="col-12 col-sm-11 col-md-10 col-lg-9 col-xsl-8">
-                    @yield('content')
-                </div>
-            </div>
-        </div>
-
+    <main class="py-4 container-fluid" style="max-width: 960px">
+        @yield('content')
     </main>
 </div>
 </body>

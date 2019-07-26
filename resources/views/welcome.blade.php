@@ -17,7 +17,7 @@
                 @endforeach
             </div>
             <div class="col-12 col-md-4 pt-md-3 d-none d-md-block">
-                @component('layouts.user', ['profile' => auth()->user()->profile])
+                @component('components.user', ['profile' => auth()->user()->profile])
                 @endcomponent
             </div>
         </div>

@@ -25,7 +25,7 @@
                     <div class="form-group">
                         <label class="control-label" for="title">Description</label>
                         <div>
-                            <input id="description" name="description" type="text" placeholder="placeholder"
+                            <input id="description" name="description" type="text" placeholder="Describe the photo"
                                    class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}"
                                    value="{{ old('description') }}" autocomplete="off">
                             @if ($errors->has('description'))

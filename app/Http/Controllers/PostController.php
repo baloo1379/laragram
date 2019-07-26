@@ -3,18 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Tag;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 
 class PostController extends Controller
 {
+    private $reTag = '/\#\w+/m';
+
     /**
      * PostController constructor.
      *
      */
     public function __construct()
     {
-        $this->middleware('auth')->except('show');
+        $this->middleware(['verified', 'auth'])->except('show');
     }
 
     /**
@@ -50,6 +53,16 @@ class PostController extends Controller
         $attr['image'] = '/' . $imagePath;
 
         $post = auth()->user()->posts()->create($attr);
+
+        preg_match_all($this->reTag, $post->description, $matches, PREG_SET_ORDER, 0);
+
+        if($matches && !empty($matches)) {
+            $tagList = array_map(function ($match) {
+                return Tag::firstOrCreate(['name' => $match[0]])->id;
+            }, $matches);
+
+            $post->tags()->attach($tagList);
+        }
 
         return redirect(route('post.show', $post));
 
