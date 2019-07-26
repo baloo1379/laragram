@@ -11,6 +11,7 @@
                     @component('tag.tag', ['desc' => $post->description])
                     @endcomponent
                 </p>
+                <div><small>{{ $post->created_at->diffForHumans() }}</small></div>
             </div>
         </div>
     </div>

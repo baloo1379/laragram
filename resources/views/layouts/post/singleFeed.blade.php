@@ -21,6 +21,7 @@
                href="{{ route('profile.index', $post->user->name) }}">{{ $post->user->name }}</a>
             @component('tag.tag', ['desc' => $post->description])
             @endcomponent
+            <div><small>{{ $post->created_at->diffForHumans() }}</small></div>
         </div>
     </div>
 </div>

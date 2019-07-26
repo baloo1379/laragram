@@ -20,7 +20,7 @@
                                 @break
                             @case("App\Tag")
                                 <li class="list-group-item">
-                                    @component('components.tag', ['tag' => $result])@endcomponent
+                                    @component('components.tag', ['tagname' => $result->name])@endcomponent
                                 </li>
                                 @break
                             @default

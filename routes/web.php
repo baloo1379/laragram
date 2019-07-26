@@ -28,7 +28,7 @@ Route::get('/', function () {
                 return $post->setTagOrigin($tag->name);
             });
         })->flatten();
-        $posts = collect([$userPosts, $tagPosts])->flatten()->unique('id');
+        $posts = collect([$userPosts, $tagPosts])->flatten()->unique('id')->sortByDesc('created_at');
         return view('welcome', [
             'posts' => $posts,
         ]);

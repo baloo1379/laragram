@@ -104,7 +104,7 @@
             </div>
         @else
             @foreach($profile->user->posts as $post)
-                @component('layouts.post.singleProfile', ['post' => $post])
+                @component('layouts.post.singleGrid', ['post' => $post])
                 @endcomponent
             @endforeach
         @endif
