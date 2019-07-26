@@ -10,15 +10,21 @@
             <div class="text-center text-md-left">
                 <h2 class="m-0 p-0">{{ $tag->name }}</h2>
                 <p>
-                    Posts: <span class="font-weight-bold">{{ $posts->count() }}</span>
+                    Posts: <span class="font-weight-bold">{{ $tag->posts->count() }}</span>
                 </p>
-                <a class="btn btn-primary btn-sm btn-tag" href="#">Follow</a>
+                <a class="btn btn-primary btn-sm btn-tag" href="{{ route('follow.tag', urlencode($tag->name)) }}"
+                   onclick="event.preventDefault();document.getElementById('follow-form').submit();">
+                    {{ auth()->user()->followsTag($tag) ? 'Unfollow' : 'Follow' }}
+                </a>
+                <form id="follow-form" action="{{ route('follow.tag', urlencode($tag->name)) }}" method="post">
+                    @csrf
+                </form>
         </div>
         </div>
         </div>
     <hr>
     <div class="row">
-        @foreach($posts as $post)
+        @foreach($tag->posts as $post)
             @component('layouts.post.singleProfile', ['post' => $post])
             @endcomponent
         @endforeach

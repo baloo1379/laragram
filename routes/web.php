@@ -17,39 +17,38 @@ use App\User;
 use App\Tag;
 use Illuminate\Support\Facades\Input;
 
+Auth::routes(['verify' => true]);
+
 Route::get('/', function () {
     if (auth()->check()) {
         $users = auth()->user()->following->pluck('id');
-        $posts = Post::whereIn('user_id', $users)->latest()->get();
+        $userPosts = Post::whereIn('user_id', $users)->latest()->get();
+        $tagPosts = auth()->user()->followingTags->map(function($tag){
+            return $tag->posts->map(function ($post) use($tag) {
+                return $post->setTagOrigin($tag->name);
+            });
+        })->flatten();
+        $posts = collect([$userPosts, $tagPosts])->flatten()->unique('id');
         return view('welcome', [
             'posts' => $posts,
         ]);
     } else return view('welcome');
-});
+})->name('home');
 
-Route::get('/t/{name}', function ($name) {
-    $tag = Tag::where('name', '#'.$name)->firstOrFail();
-    return view('tag.show', [
-        'posts' => $tag->posts,
-        'tag' => $tag
-    ]);
-})->name('tag.show');
+Route::get('/t/{tag}', 'TagController@show')->name('tag.show');
 
 Route::get('/search', 'SearchController@search')->name('search');
 
-Auth::routes();
-
 Route::resource('profile', 'ProfileController', ['except' => ['index', 'create', 'store']]);
+
 Route::resource('post', 'PostController', ['except' => ['index']]);
 
-Route::get('/{username}', function ($name) {
-    $user = App\User::where('name', $name)->firstOrFail();
-    return view('profile.show', ['profile' => $user->profile]);
-})->name('profile.index');
+Route::post('/fu/{user}', 'FollowsController@user')->name('follow.user');
 
-Route::middleware('auth')->post('/follow/{user}', function (App\User $user) {
-    auth()->user()->following()->toggle($user);
-    return back();
-})->name('follow');
+Route::post('/ft/{tag}', 'FollowsController@tag')->name('follow.tag');
+
+Route::get('/{user}', 'ProfileController@index')->name('profile.index');
+
+
 
 

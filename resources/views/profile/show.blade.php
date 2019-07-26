@@ -13,11 +13,11 @@
                             profile</a>
                 @endcan
                 @cannot('update', $profile)
-                    <a class="btn btn-primary btn-sm w-100" href="{{ route('follow', $profile->user) }}"
+                    <a class="btn btn-primary btn-sm w-100" href="{{ route('follow.user', $profile->user) }}"
                        onclick="event.preventDefault();document.getElementById('follow-form').submit();">
                         {{ auth()->user()->follows($profile->user) ? 'Unfollow' : 'Follow' }}
                     </a>
-                    <form id="follow-form" action="{{ route('follow', $profile->user) }}" method="post">
+                    <form id="follow-form" action="{{ route('follow.user', $profile->user) }}" method="post">
                         @csrf
                     </form>
                 @endcannot
@@ -63,11 +63,11 @@
                     @endcan
                     @cannot('update', $profile)
                         <div class="ml-2">
-                            <a class="btn btn-primary btn-sm" href="{{ route('follow', $profile->user) }}"
+                            <a class="btn btn-primary btn-sm" href="{{ route('follow.user', $profile->user) }}"
                                onclick="event.preventDefault();document.getElementById('follow-form').submit();">
                                 {{ auth()->user()->follows($profile->user) ? 'Unfollow' : 'Follow' }}
                             </a>
-                            <form id="follow-form" action="{{ route('follow', $profile->user) }}" method="post">
+                            <form id="follow-form" action="{{ route('follow.user', $profile->user) }}" method="post">
                                 @csrf
                             </form>
                         </div>

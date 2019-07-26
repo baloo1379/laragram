@@ -19,6 +19,8 @@ class Post extends Model
 {
     protected $guarded = [];
 
+    private $fromTag = false;
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -47,5 +49,16 @@ class Post extends Model
     public function getType()
     {
         return "App\Post";
+    }
+
+    public function setTagOrigin(string $value)
+    {
+        $this->fromTag = $value;
+        return $this;
+    }
+
+    public function getTagOrigin()
+    {
+        return $this->fromTag;
     }
 }

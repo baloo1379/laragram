@@ -1,7 +1,12 @@
 <div class="card mb-2 {{ $classes ?? '' }}">
     <div class="card-body p-3">
-        @component('components.user', ['profile' => $post->user->profile])
-        @endcomponent
+        @if(!$post->getTagOrigin())
+            @component('components.user', ['profile' => $post->user->profile])
+            @endcomponent
+        @else
+            @component('components.tag', ['tagname' => $post->getTagOrigin(), 'username' => $post->user->name])
+            @endcomponent
+        @endif
     </div>
 
     <img src="{{ $post->image }}" alt="Post image" class="w-100">

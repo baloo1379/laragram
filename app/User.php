@@ -4,17 +4,19 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 /**
+ * @package App
  * @property int id
  * @property string name
  * @property string email
- * @property Profile profile
+ * @property mixed profile
  * @property mixed following
  * @property mixed followers
  * @mixin \Eloquent
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -55,6 +57,12 @@ class User extends Authenticatable
         });
     }
 
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
+
+
     public function profile()
     {
         return $this->hasOne(Profile::class);
@@ -78,6 +86,16 @@ class User extends Authenticatable
     public function follows(User $user)
     {
         return $this->following->contains('id', $user->id);
+    }
+
+    public function followingTags()
+    {
+        return $this->belongsToMany(Tag::class, 'follows_tag', 'following_id', 'followed_id');
+    }
+
+    public function followsTag(Tag $tag)
+    {
+        return $this->followingTags->contains('id', $tag->id);
     }
 
     public function getType()

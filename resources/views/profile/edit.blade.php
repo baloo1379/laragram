@@ -45,7 +45,7 @@
 
                         <!-- Textarea -->
                         <div class="form-group">
-                            <label class="control-label" for="textarea">Text Area</label>
+                            <label class="control-label" for="textarea">Biogram</label>
                             <div>
                                 <textarea class="form-control {{ $errors->has('biogram') ? 'is-invalid' : '' }}"
                                           id="biogram"
