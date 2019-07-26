@@ -12,13 +12,19 @@
                 <p>
                     Posts: <span class="font-weight-bold">{{ $tag->posts->count() }}</span>
                 </p>
-                <a class="btn btn-primary btn-sm btn-tag" href="{{ route('follow.tag', urlencode($tag->name)) }}"
-                   onclick="event.preventDefault();document.getElementById('follow-form').submit();">
-                    {{ auth()->user()->followsTag($tag) ? 'Unfollow' : 'Follow' }}
-                </a>
-                <form id="follow-form" action="{{ route('follow.tag', urlencode($tag->name)) }}" method="post">
-                    @csrf
-                </form>
+                @auth
+                    <a class="btn btn-primary btn-sm btn-tag" href="{{ route('follow.tag', urlencode($tag->name)) }}"
+                       onclick="event.preventDefault();document.getElementById('follow-form').submit();">
+                        {{ auth()->user()->followsTag($tag) ? 'Unfollow' : 'Follow' }}
+                    </a>
+                    <form id="follow-form" action="{{ route('follow.tag', urlencode($tag->name)) }}" method="post">
+                        @csrf
+                    </form>
+                @else
+                    <a class="btn btn-primary btn-sm btn-tag" href="{{ route('register') }}">
+                        Follow
+                    </a>
+                @endauth
         </div>
         </div>
         </div>
