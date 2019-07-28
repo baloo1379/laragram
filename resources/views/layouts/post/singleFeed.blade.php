@@ -10,11 +10,11 @@
     </div>
 
     <img src="{{ $post->image }}" alt="Post image" class="w-100">
-    <div class="card-body p-3 border-top">
-        <div class="mb-3">
-            Like
-            <a href="{{ route('post.show', $post) }}">View</a>
-            Share
+    <div class="card-body p-2 border-top">
+        <div class="">
+            <a href="#" class="btn btn-link text-dark text-decoration-none p-1"><i class="far fa-heart fa-2x"></i></a>
+            <a class="btn btn-link text-dark text-decoration-none p-1" href="{{ route('post.show', $post) }}"><i class="far fa-comment fa-2x"></i></a>
+            <button class="btn btn-link text-dark text-decoration-none share-button p-1" data-toggle="modal" data-target="#shareModal" data-url="{{ route('post.show', $post->id) }}"><i class="far fa-share-square fa-2x"></i></button>
         </div>
         <div>
             <a class="text-dark font-weight-bold"

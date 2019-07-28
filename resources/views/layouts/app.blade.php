@@ -18,70 +18,65 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha256-UzFD2WYH2U1dQpKDjjZK72VtPeWP50NoJjd26rnAdUI=" crossorigin="anonymous" />
+
+    <!-- Open Graph -->
+    <meta property="fb:app_id" content="2418427178387412" />
+    @yield('meta')
 </head>
 <body>
 <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <nav class="navbar navbar-expand navbar-light bg-white shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="{{ __('Toggle navigation') }}">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <!-- Left Side Of Navbar -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    @component('components.search')
+                    @endcomponent
+                </li>
+            </ul>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Left Side Of Navbar -->
-                <ul class="navbar-nav mr-auto mt-3 mt-md-0">
+            <!-- Right Side Of Navbar -->
+            <ul class="navbar-nav ml-auto pl-2 pl-sm-0">
+                <!-- Authentication Links -->
+                @guest
                     <li class="nav-item">
-                        @component('components.search')
-                        @endcomponent
+                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                     </li>
-                </ul>
-
-                <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ml-auto mt-3 mt-md-0">
-                    <!-- Authentication Links -->
-                    @guest
+                    @if (Route::has('register'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @endif
-                    @else
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link btn dropdown-toggle" href="#" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
+                    @endif
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('post.create') }}" title="New post"><i class="fas fa-plus-square fa-2x"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('profile.show', auth()->id()) }}" title="Your Profile">
+                            <i class="fas fa-user fa-2x"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('profile.edit', auth()->id()) }}" title="Settings"><i class="fas fa-cog fa-2x"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('logout') }}" title="{{ __('Logout') }}"
+                           onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                            <i class="fas fa-sign-out-alt fa-2x"></i>
+                        </a>
 
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a href="{{ route('profile.show', auth()->id()) }}" class="dropdown-item">Your
-                                    profile</a>
-                                <a href="{{ route('post.create') }}" class="dropdown-item">New post</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="{{ route('profile.edit', auth()->id()) }}" class="dropdown-item">Settings</a>
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                      style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                    @endguest
-                </ul>
-            </div>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                              style="display: none;">
+                            @csrf
+                        </form>
+                    </li>
+                @endguest
+            </ul>
         </div>
     </nav>
 
@@ -89,5 +84,7 @@
         @yield('content')
     </main>
 </div>
+@yield('modal')
+@yield('script')
 </body>
 </html>
