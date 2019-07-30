@@ -60,20 +60,28 @@
                             </div>
                         </div>
 
-                        <!-- File Button -->
-                        <div class="form-group">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="image" name="image">
-                                <label class="custom-file-label" for="image">Choose new profile photo</label>
+
+                        <div class="form-group d-flex justify-content-start align-items-center">
+                            <div class="mr-3">
+                                <img src="{{ $profile->image }}" id="avatar" alt="Profile image" class="w-100 rounded-circle border" style="max-width: 100px;">
                             </div>
-                            @if ($errors->has('image'))
-                                <div class="invalid-feedback d-inline">
-                                    @foreach($errors->get('image') as $error)
-                                        {{ $error }}
-                                    @endforeach
+                            <!-- File Button -->
+                            <div class="w-100">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="image" name="image">
+                                    <label class="custom-file-label" for="image">Choose new profile photo</label>
                                 </div>
-                            @endif
+                                @if ($errors->has('image'))
+                                    <div class="invalid-feedback d-inline">
+                                        @foreach($errors->get('image') as $error)
+                                            {{ $error }}
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
                         </div>
+
+
 
                         <!-- Button -->
                         <div class="form-group">
