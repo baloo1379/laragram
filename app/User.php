@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Laragram\HasFollows;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -18,7 +19,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable;
+    use Notifiable, HasFollows;
 
     /**
      * The attributes that are mass assignable.
@@ -62,7 +63,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return 'name';
     }
 
-
     public function profile()
     {
         return $this->hasOne(Profile::class);
@@ -71,11 +71,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function posts()
     {
         return $this->hasMany(Post::class)->latest();
-    }
-
-    public function followers()
-    {
-        return $this->belongsToMany(User::class, 'follows', 'followed_id', 'following_id');
     }
 
     public function following()
@@ -101,5 +96,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getType()
     {
         return "App\User";
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }
