@@ -37113,6 +37113,9 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
     var url = evt.target.getAttribute('href');
     copyStringToClipboard(url);
   });
+  $('#image').change(function (ev) {
+    readURL(this);
+  });
 })();
 
 function copyStringToClipboard(str) {
@@ -37133,6 +37136,18 @@ function copyStringToClipboard(str) {
   document.execCommand('copy'); // Remove temporary element
 
   document.body.removeChild(el);
+}
+
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+      $('#avatar').attr('src', e.target.result);
+    };
+
+    reader.readAsDataURL(input.files[0]);
+  }
 }
 
 /***/ }),

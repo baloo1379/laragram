@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Laragram\Followable;
+use App\Laragram\HasFollows;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -14,6 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Tag extends Model
 {
+    use HasFollows;
+
     protected $fillable = ['name'];
 
     public function getRouteKeyName()
@@ -31,10 +35,10 @@ class Tag extends Model
         return $this->belongsToMany(Post::class)->latest();
     }
 
-    public function followers()
-    {
-        return $this->belongsToMany(User::class, 'follows_tag', 'followed_id', 'following_id');
-    }
+//    public function followers()
+//    {
+//        return $this->belongsToMany(User::class, 'follows_tag', 'followed_id', 'following_id');
+//    }
 
     public function getType()
     {

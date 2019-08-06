@@ -47,6 +47,10 @@ Route::post('/fu/{user}', 'FollowsController@user')->name('follow.user');
 
 Route::post('/ft/{tag}', 'FollowsController@tag')->name('follow.tag');
 
+Route::post('/c', 'CommentController@store')->name('comment.store');
+
+Route::post('/c/{comment}', 'CommentController@update')->name('comment.update');
+
 Route::get('/{user}', 'ProfileController@index')->name('profile.index');
 
 

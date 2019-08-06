@@ -12,3 +12,12 @@
     width: initial !important;
   }
 }
+
+.comments-flex-basis {
+  flex-basis: content;
+  @media (min-width: 768px) {
+    flex-basis: 0;
+  }
+}
+
+

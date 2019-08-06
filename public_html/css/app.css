@@ -10654,3 +10654,13 @@ a.text-dark:focus {
   }
 }
 
+.comments-flex-basis {
+  flex-basis: content;
+}
+
+@media (min-width: 768px) {
+  .comments-flex-basis {
+    flex-basis: 0;
+  }
+}
+

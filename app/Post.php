@@ -61,4 +61,9 @@ class Post extends Model
     {
         return $this->fromTag;
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
