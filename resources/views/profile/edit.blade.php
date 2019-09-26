@@ -60,14 +60,23 @@
                         <div class="form-group d-flex justify-content-start align-items-center">
                             <div class="mr-3">
                                 <img src="{{ $profile->getImage() }}" id="avatar" alt="Profile image" class="w-100 rounded-circle border" style="max-width: 100px;">
-                            </div>
 
+                            </div>
                             @if($profile->image !== null)
-                                <input type="hidden" name="removeImage" id="removeImage">
-                                <div>
-                                    <button type="button" class="btn" onclick="document.getElementById('removeImage').value = 1;document.getElementById('editProfileForm').submit();">Delete photo</button>
-                                </div>
+                                <form method="post" action="{{ route('profile.update', $profile) }}"
+                                      enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PATCH')
+                                    <input type="hidden" name="removeImage" id="removeImage" value="1">
+                                    <input type="hidden" name="title" value="{{ $profile->title }}">
+                                    <div class="mr-3">
+                                        <button type="submit" class="btn">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </form>
                             @endif
+
 
                             <div class="w-100">
                                 <div class="custom-file">
