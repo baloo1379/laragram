@@ -52,7 +52,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
         static::created(function (User $user) {
             $user->profile()->create([
-                'image' => '/storage/defaults/user.jpg',
+                'image' => null,
                 'title' => $user->name,
             ]);
         });

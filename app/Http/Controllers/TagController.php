@@ -16,7 +16,6 @@ class TagController extends Controller
      */
     public function show(Tag $tag)
     {
-        // $tag = Tag::where('name', '#'.$name)->firstOrFail();
         return view('tag.show', compact('tag'));
     }
 }

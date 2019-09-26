@@ -16,7 +16,6 @@ class ProfileController extends Controller
 
     public function index(User $user)
     {
-        // $user = User::where('name', $username)->firstOrFail();
         return view('profile.show', ['profile' => $user->profile]);
     }
 
@@ -55,26 +54,8 @@ class ProfileController extends Controller
     public function update(Request $request, Profile $profile)
     {
         $this->authorize('update', $profile);
-
-        $attr = $request->validate([
-            'title' => 'nullable|not_regex:/\#\w+/m',
-            'website' => 'nullable|url',
-            'biogram' => 'nullable',
-            'image' => 'nullable|image',
-        ]);
-
-        if ($request->has('image')) {
-            $imagePath = '/storage/' . $request->image->store('profile', 'public');
-            $image = Image::make(public_path($imagePath))->fit(env('AVATAR_SIZE', 300));
-            unlink(substr($imagePath, 1));
-            $jpg = Image::canvas(env('AVATAR_SIZE', 300), env('AVATAR_SIZE', 300), '#ffffff');
-            $jpg->insert($image);
-            $imagePath = 'storage/profile/' . $image->filename . '.jpg';
-            $jpg->save($imagePath);
-            $attr['image'] = '/' . $imagePath;
-        }
-
-        $profile->update($attr);
+        $profile->update($this->validation($request));
+        $profile->setImage($request);
 
         return redirect(route('profile.show', $profile));
     }
@@ -89,5 +70,14 @@ class ProfileController extends Controller
     public function destroy(Profile $profile)
     {
         $this->authorize('update', $profile);
+    }
+
+    private function validation(Request $request)
+    {
+         return $request->validate([
+            'title' => 'required|not_regex:/\#\w+/m',
+            'website' => 'nullable|url',
+            'biogram' => 'nullable|string',
+        ]);
     }
 }

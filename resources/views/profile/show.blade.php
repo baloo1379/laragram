@@ -3,7 +3,7 @@
 @section('content')
     <div class="d-md-none row">
         <div class="col-3">
-            <img src="{{ $profile->image }}" alt="Profile image" class="w-100 rounded-circle border">
+            <img src="{{ $profile->getImage() }}" alt="Profile image" class="w-100 rounded-circle border">
         </div>
         <div class="col-9">
             <h2 class="m-0 p-0 mb-2">{{ $profile->user->name }}</h2>
@@ -48,7 +48,7 @@
     </div>
     <div class="d-none d-md-flex row my-md-5">
         <div class="col-4 d-flex justify-content-center align-items-center">
-            <img src="{{ $profile->image }}" alt="Profile image" class="d-block w-100 rounded-circle border "
+            <img src="{{ $profile->getImage() }}" alt="Profile image" class="d-block w-100 rounded-circle border "
             style="max-width: 150px;">
         </div>
         <div class="col-8">

@@ -5,11 +5,10 @@
         <div class="row justify-content-center">
             <div class="col-11 col-sm-8 container">
                 <form class="card" method="post" action="{{ route('profile.update', $profile) }}"
-                      enctype="multipart/form-data">
+                      enctype="multipart/form-data" id="editProfileForm">
                     @csrf
                     @method('PATCH')
                     <fieldset class="card-body">
-                        <!-- Text input-->
                         <div class="form-group">
                             <label class="control-label" for="title">Title</label>
                             <div>
@@ -26,7 +25,6 @@
                             </div>
                         </div>
 
-                        <!-- Text input-->
                         <div class="form-group">
                             <label class="control-label" for="website">Website</label>
                             <div class="">
@@ -43,7 +41,6 @@
                             </div>
                         </div>
 
-                        <!-- Textarea -->
                         <div class="form-group">
                             <label class="control-label" for="textarea">Biogram</label>
                             <div>
@@ -60,12 +57,18 @@
                             </div>
                         </div>
 
-
                         <div class="form-group d-flex justify-content-start align-items-center">
                             <div class="mr-3">
-                                <img src="{{ $profile->image }}" id="avatar" alt="Profile image" class="w-100 rounded-circle border" style="max-width: 100px;">
+                                <img src="{{ $profile->getImage() }}" id="avatar" alt="Profile image" class="w-100 rounded-circle border" style="max-width: 100px;">
                             </div>
-                            <!-- File Button -->
+
+                            @if($profile->image !== null)
+                                <input type="hidden" name="removeImage" id="removeImage">
+                                <div>
+                                    <button type="button" class="btn" onclick="document.getElementById('removeImage').value = 1;document.getElementById('editProfileForm').submit();">Delete photo</button>
+                                </div>
+                            @endif
+
                             <div class="w-100">
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="image" name="image">
@@ -81,13 +84,9 @@
                             </div>
                         </div>
 
-
-
-                        <!-- Button -->
                         <div class="form-group">
                             <button type="submit" id="send" name="send" class="btn btn-primary">Update profile</button>
                         </div>
-
                     </fieldset>
                 </form>
             </div>
