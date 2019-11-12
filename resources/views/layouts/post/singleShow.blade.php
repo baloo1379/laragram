@@ -26,7 +26,7 @@
                     @foreach($post->comments as $comment)
                         <li class="py-2 px-3 d-flex">
                             <div class="mr-3">
-                                <img src="{{ $comment->user->profile->image ?? '/storage/defaults/default.jpg'}}" alt="Profile image" class="rounded-circle overflow-hidden"
+                                <img src="{{ $comment->user->profile->getImage() }}" alt="Profile image" class="rounded-circle overflow-hidden"
                                      style="width: 30px; height: 30px;">
                             </div>
                             <div>
