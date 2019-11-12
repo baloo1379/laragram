@@ -10,7 +10,7 @@
                 <ul class="list-unstyled m-0">
                     <div class="pb-2 px-3 d-flex w-100">
                         <div class="mr-3">
-                            <img src="{{ $post->user->profile->image ?? '/storage/defaults/default.jpg'}}" alt="Profile image" class="rounded-circle overflow-hidden"
+                            <img src="{{ $post->user->profile->getImage() }}" alt="Profile image" class="rounded-circle overflow-hidden"
                                  style="width: 30px; height: 30px;">
                         </div>
                         <div>
