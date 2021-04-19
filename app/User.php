@@ -17,7 +17,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
  * @property mixed followers
  * @mixin \Eloquent
  */
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use Notifiable, HasFollows;
 
