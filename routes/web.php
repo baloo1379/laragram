@@ -21,6 +21,8 @@ Auth::routes(['verify' => true]);
 
 Route::get('/', 'HomeController@home')->name('home');
 
+Route::get('/home', 'HomeController@home')->name('default');
+
 Route::get('/t/{tag}', 'TagController@show')->name('tag.show');
 
 Route::get('/search', 'SearchController@search')->name('search');
