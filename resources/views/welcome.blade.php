@@ -15,6 +15,11 @@
                     @component('layouts.post.singleFeed', ['post' => $post])
                     @endcomponent
                 @endforeach
+                    <div class="col-12 d-flex justify-content-center">
+                        <div class="text-muted">
+                            {{ $posts->links() }}
+                        </div>
+                    </div>
             </div>
             <div class="col-12 col-md-4 pt-md-3 d-none d-md-block">
                 @component('components.user', ['profile' => auth()->user()->profile])

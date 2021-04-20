@@ -103,10 +103,16 @@
                 </div>
             </div>
         @else
-            @foreach($profile->user->posts as $post)
+            @php
+                $posts = $profile->user->posts->paginate(9);
+            @endphp
+            @foreach($posts as $post)
                 @component('layouts.post.singleGrid', ['post' => $post])
                 @endcomponent
             @endforeach
+            <div class="col-md-12 d-flex justify-content-center">
+                {{ $posts->links() }}
+            </div>
         @endif
     </div>
 

@@ -19,7 +19,7 @@ class HomeController extends Controller
             })->flatten();
             $posts = collect([$userPosts, $tagPosts])->flatten()->unique('id')->sortByDesc('created_at');
             return view('welcome', [
-                'posts' => $posts,
+                'posts' => $posts->paginate(10),
             ]);
         } else return view('welcome');
     }

@@ -30,10 +30,16 @@
         </div>
     <hr>
     <div class="row">
-        @foreach($tag->posts as $post)
+        @php
+            $posts = $tag->posts->paginate(9);
+        @endphp
+        @foreach($posts as $post)
             @component('layouts.post.singleGrid', ['post' => $post])
             @endcomponent
         @endforeach
+        <div class="col-md-12 d-flex justify-content-center">
+            {{ $posts->links() }}
+        </div>
     </div>
 
 @endsection
