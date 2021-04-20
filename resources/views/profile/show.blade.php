@@ -57,8 +57,12 @@
                 @auth
                     @can('update', $profile)
                         <div class="ml-2">
-                            <a class="btn btn-outline-secondary btn-sm" href="{{ route('profile.edit', $profile) }}">Edit
-                                profile</a>
+                            <a class="btn btn-outline-secondary btn-sm" href="{{ route('profile.edit', $profile) }}">Edit profile</a>
+                            <form name="delete-all-posts" class="d-inline" action="{{ route('profile.destroyPosts', $profile) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-outline-danger btn-sm">Delete all posts</button>
+                            </form>
                         </div>
                     @endcan
                     @cannot('update', $profile)

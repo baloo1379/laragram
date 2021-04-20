@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Profile;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
 class ProfileController extends Controller
@@ -70,6 +71,28 @@ class ProfileController extends Controller
     public function destroy(Profile $profile)
     {
         $this->authorize('update', $profile);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param \App\Profile $profile
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function destroyPosts(Profile $profile)
+    {
+        $this->authorize('update', $profile);
+
+        $posts = $profile->user->posts()->getResults();
+
+        foreach ($posts as $post) {
+            $imagePath = public_path(substr($post->image, 1));
+            File::delete($imagePath);
+            $post->delete();
+        }
+
+        return redirect(route('profile.show', $profile->id));
     }
 
     private function validation(Request $request)

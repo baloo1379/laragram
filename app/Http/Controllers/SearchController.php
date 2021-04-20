@@ -37,7 +37,7 @@ class SearchController extends Controller
             $id = array_unique(array_merge($users, $profiles), SORT_REGULAR);
             $usersResult = User::whereIn('id', $id)->get();
         }
-        $results = Collection::make([[$usersResult, $tagsResult]])->flatten()->sortBy('name');
+        $results = Collection::make([[$usersResult, $tagsResult]])->flatten()->sortBy('name')->paginate;
         return view('search', compact('results'));
     }
 }

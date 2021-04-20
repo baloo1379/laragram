@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 class PostController extends Controller
@@ -109,12 +111,17 @@ class PostController extends Controller
      * Remove the specified resource from storage.
      *
      * @param \App\Post $post
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Exception
      */
     public function destroy(Post $post)
     {
         $this->authorize('update', $post);
-        return redirect('/');
+        $imagePath = public_path(substr($post->image, 1));
+        $profileId = $post->user->profile->id;
+        File::delete($imagePath);
+        $post->delete();
+        return redirect(route('profile.show', $profileId));
     }
 }

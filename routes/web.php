@@ -27,7 +27,9 @@ Route::get('/t/{tag}', 'TagController@show')->name('tag.show');
 
 Route::get('/search', 'SearchController@search')->name('search');
 
-Route::resource('profile', 'ProfileController', ['except' => ['index', 'create', 'store']]);
+Route::delete('/profile/{profile}/posts', 'ProfileController@destroyPosts' )->name('profile.destroyPosts');
+
+Route::resource('profile', 'ProfileController', ['except' => ['index', 'create', 'store', 'destroy']]);
 
 Route::resource('post', 'PostController', ['except' => ['index']]);
 

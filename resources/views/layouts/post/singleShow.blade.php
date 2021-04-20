@@ -44,9 +44,24 @@
 
             </div>
             <div class="border-bottom p-3">
-                <a href="#" class="btn btn-link text-dark text-decoration-none p-1"><i class="far fa-heart fa-2x"></i></a>
-                <a class="btn btn-link text-dark text-decoration-none p-1" href="#comment"><i class="far fa-comment fa-2x"></i></a>
-                <button class="btn btn-link text-dark text-decoration-none share-button p-1" data-toggle="modal" data-target="#shareModal" data-url="{{ route('post.show', $post->id) }}"><i class="far fa-share-square fa-2x"></i></button>
+                <a href="#" class="btn btn-link text-dark text-decoration-none p-1">
+                    <i class="far fa-heart fa-2x"></i>
+                </a>
+                <a class="btn btn-link text-dark text-decoration-none p-1" href="#comment">
+                    <i class="far fa-comment fa-2x"></i>
+                </a>
+                <button class="btn btn-link text-dark text-decoration-none share-button p-1" data-toggle="modal" data-target="#shareModal" data-url="{{ route('post.show', $post->id) }}">
+                    <i class="far fa-share-square fa-2x"></i>
+                </button>
+                @can('update', $post)
+                <form name="delete-post" method="post" action="{{ route('post.destroy', $post->id) }}" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-link text-dark text-decoration-none p-1">
+                        <i class="far fa-trash-alt fa-2x"></i>
+                    </button>
+                </form>
+                @endcan
                 <br><small>{{ $post->created_at->diffForHumans() }}</small>
             </div>
             <div class="border-bottom position-relative">
@@ -55,6 +70,7 @@
                     <input type="hidden" name="post_id" value="{{ $post->id }}">
                     <input class="border-0 w-100 p-3 pr-5" type="text" name="content" id="comment" placeholder="Add comment..." autocomplete="off">
                     <button type="submit" class="btn btn-link p-3 position-absolute" style="right: 0; top: 0;"><i class="far fa-paper-plane"></i></button>
+
                 </form>
             </div>
         </div>
