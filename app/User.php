@@ -6,6 +6,7 @@ use App\Laragram\HasFollows;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @package App
@@ -55,6 +56,10 @@ class User extends Authenticatable
                 'image' => null,
                 'title' => $user->name,
             ]);
+        });
+
+        static::deleting(function (User $user) {
+            DB::table('follows')->where('following_id', $user->id)->delete();
         });
     }
 

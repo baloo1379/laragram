@@ -61,7 +61,12 @@
                             <form name="delete-all-posts" class="d-inline" action="{{ route('profile.destroyPosts', $profile) }}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-outline-danger btn-sm">Delete all posts</button>
+                                <button type="submit" class="btn btn-warning btn-sm">Delete all posts</button>
+                            </form>
+                            <form name="delete-profile" class="d-inline" action="{{ route('profile.destroy', $profile) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm">Delete profile</button>
                             </form>
                         </div>
                     @endcan

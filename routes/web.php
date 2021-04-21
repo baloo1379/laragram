@@ -29,7 +29,7 @@ Route::get('/search', 'SearchController@search')->name('search');
 
 Route::delete('/profile/{profile}/posts', 'ProfileController@destroyPosts' )->name('profile.destroyPosts');
 
-Route::resource('profile', 'ProfileController', ['except' => ['index', 'create', 'store', 'destroy']]);
+Route::resource('profile', 'ProfileController', ['except' => ['index', 'create', 'store']]);
 
 Route::resource('post', 'PostController', ['except' => ['index']]);
 

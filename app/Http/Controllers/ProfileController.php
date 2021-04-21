@@ -65,12 +65,17 @@ class ProfileController extends Controller
      * Remove the specified resource from storage.
      *
      * @param \App\Profile $profile
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Exception
      */
     public function destroy(Profile $profile)
     {
         $this->authorize('update', $profile);
+        $user = $profile->user;
+
+        $user->delete();
+        return redirect(route('home'));
     }
 
     /**
