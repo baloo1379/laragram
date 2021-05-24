@@ -5,16 +5,15 @@ namespace App\Http\Controllers;
 use App\Profile;
 use App\User;
 use App\Tag;
-use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 
 class SearchController extends Controller
 {
     public function search()
     {
-        $q = Input::get('q', '');
-        if($q == '') {
+        $q = Request::input('q', '');
+        if(empty($q)) {
             return back();
         }
 
